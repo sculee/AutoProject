@@ -1,0 +1,197 @@
+<html>
+<head>
+</head>
+<body>
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="./jquery.min.js"></script> -->
+<script type="text/javascript">
+var start = 0;
+var end = 0;
+
+function preText()
+{
+	var testcase = document.getElementById("testcase");
+	var pre=testcase.value.substr(0,start);
+//	var post=textBox.value.substr(end);
+//	textBox.value=pre+document.getElementById("inputtext").value+post;
+	return pre;
+}
+
+function savePos(textBox)
+{
+	if(typeof(textBox.selectionStart)=="number")
+	{
+		start=textBox.selectionStart;
+		end=textBox.selectionEnd;
+	} 
+}
+
+
+function hint(obj)
+{
+	if(typeof(obj.selectionStart)=="number")
+	{
+		start=obj.selectionStart;
+		end=obj.selectionEnd;
+	} 
+	var testcase = document.getElementById("testcase");
+	var key=testcase.value.substr(0,start);
+	if(!key)
+	{
+		return;
+	}
+	$.ajax
+	({
+		type:"GET",
+		url:"http://127.0.0.1:8000/hint/",
+		data:{"key":key},
+		dataType:"json",
+		success:function(response)
+		{
+			if(response.key[0])
+			{
+				$("div#value").html("查询结果：");
+				$("div#list").css("display","block")
+				$("div#list").css("margin","0 auto")
+				$("div#list").css("width","200px")
+				$("div#list").css("border","1px solid black")
+				var size = $("ul#ulist li").length;
+				for(var j=0;j<size;j++)
+				{
+					$("li#"+j).remove();
+				}
+				if(response.key.length < 5)
+				{
+					max = response.key.length;
+				}
+				else
+				{
+					max = 5;
+				}
+				for(var i=0;i<max;i++)
+				{
+					$("ul#ulist").append("<li id=\"" + i + "\">" + "</li>");
+					$("li#"+i).html(response.key[i]);
+				}
+			}
+			else
+			{
+				$("div#list").css("display","none");
+			}
+		}
+	})
+}
+
+function post()
+{
+	var testcase = document.getElementById("testcase").value;
+	var url = document.getElementById("url").value;
+	if(!testcase)
+	{
+		return;
+	}
+	else if(!url)
+	{
+		return;
+	}
+	$.ajax
+	({
+		type:"GET",
+		url:"http://127.0.0.1:8000/save/",
+		data:{"testcase":testcase,"url":url},
+		dataType:"json",
+		success:function(response)
+		{
+			if(response.code == "OK")
+			{
+				alert("OK");
+//				$("textarea#compiled").html(response);
+			}
+		}
+	})
+}
+
+
+function save()
+{
+	var testcase = document.getElementById("testcase").value;
+	var casename = document.getElementById("filename").value;
+	if(!testcase)
+	{
+		return;
+	}
+	else if(!casename)
+	{
+		return;
+	}
+	$.ajax
+	({
+		type:"GET",
+		url:"http://127.0.0.1:8000/save/",
+		data:{"case":testcase,"filename":casename},
+		dataType:"json",
+		success:function(response)
+		{
+			if(response.code == "OK")
+			{
+				alert("已保存");
+//				$("textarea#compiled").html(response);
+			}
+		}
+	})
+}
+
+
+function check()
+{
+	var testcase = document.getElementById("testcase").value;
+	if(!testcase)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function show()
+{
+	$("div#list").css("display","block")
+	$("div#list").css("margin","0 auto")
+	$("div#list").css("width","200px")
+//	$("div#list").css("border","5px solid red")
+}
+
+function hide()
+{
+	$("div#list").css("display","none")
+}
+</script>
+<p>用例编辑页面</p>
+<br>
+<form id="text" action="" onsubmit="return check()" method="get">
+<p>用例名称：</p>
+<input type="text" id="filename" name="filename"></input>
+<br>
+<br>
+<p>接口地址：</p>
+<input type="text" id="url" name="url">{{url}}</input>
+<br>
+<br>
+<textarea id="testcase" name="testcase" placeholder="在此栏编写用例" onKeydown="hint(this)" onKeyup="hint(this)" onmousedown="hint(this)" onmouseup="hint(this)"  onclick="hint(testcase)"  onInput="hint(this)" onfocus="hint(this)" onblur="hide()" rows="14" cols="50">{{message}}</textarea>
+<input type="submit" value="编译"></input>
+<textarea id="compiled" readonly="readonly" rows="14" cols="50">{{compiled}}</textarea>
+</form>
+<input type="button" value="保存" onclick="save()"></input>
+<!-- <textarea id="testcase" name="testcase" placeholder="查询后台" onclick="link(this)" onInput="link(this)" onKeydown="savePos(this)" onKeyup="savePos(this)" onmousedown="savePos(this)" onmouseup="savePos(this)" onfocus="savePos(this)" onblur="hide()" rows="14" cols="50"></textarea> -->
+<div id="value"></div>
+<div id="list" style="display:none">
+<ul id="ulist" style="list-style:none">
+<!-- <li id="0"></li> -->
+<!-- <li id="1"></li> -->
+</ul>
+</div>
+</body>
+</html>

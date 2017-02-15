@@ -1,0 +1,10 @@
+<html>
+<body>
+<p>this is index page</p>
+{% if name_list %}
+	{% for name in name_list %}
+		<li>hello  {{name}}</li>
+	{% endfor %}
+{% endif %}
+</body>
+</html>

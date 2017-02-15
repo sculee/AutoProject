@@ -1,0 +1,38 @@
+<html>
+<head>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script>
+function save()
+{
+	$("form#case").attr("action","");
+	console.log("+++++++++++++++save+++++++++++++++");
+	$("form#case").submit();
+}
+
+function post()
+{
+	$("form#case").attr("action","http://127.0.0.1:8000/post/");
+	console.log("+++++++++++++++post+++++++++++++++");
+	$("form#case").submit();
+}
+</script>
+</head>
+<body>
+<form id="case">
+<p>用例名称：</p>
+<input type="text" id="filename" name="filename"></input>
+<br>
+<br>
+<p>接口地址：</p>
+<input type="text" id="url" name="url">{{url}}</input>
+<br>
+<br>
+<textarea id="testcase" name="testcase" placeholder="在此栏编写用例" rows="14" cols="50">{{message}}</textarea>
+<textarea id="compiled" readonly="readonly" rows="14" cols="50">{{compiled}}</textarea>
+<br>
+<br>
+<input type="button" value="保存" onclick="save()"></input>
+<input type="button" value="提交" onclick="post()"></input>
+</form>
+</body>
+</html>

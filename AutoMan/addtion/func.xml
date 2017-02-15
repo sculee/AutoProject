@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tag>
+	<key name = "query">
+		<class>sql</class>
+		<func>query</func>
+	</key>
+	<key name = "date">
+		<class>stamp</class>
+		<func>dateToStamp</func>
+	</key>
+</tag>

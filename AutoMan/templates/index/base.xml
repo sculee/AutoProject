@@ -1,0 +1,12 @@
+<html>
+<head>
+	<tittle>
+	{% block tittle %}{% endblock %}
+	</tittle>
+</head>
+
+<body>
+	<h1>this  is a text</h1>
+	{% block content %}<h2>this is second line</h2>{% endblock %}
+</body>
+</html>

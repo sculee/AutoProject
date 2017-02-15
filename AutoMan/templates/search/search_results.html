@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Search results</title>
+</head>
+<body>
+	{% if books %}
+		<li>you have searched: {{q}}</li>
+		{% if books %}
+			{% for book in books %}
+				<li>book name: {{book.title}}</li>
+			{% endfor %}
+		{% endif %}
+	{% else %}
+		<li>sorry, we have no book contains: {{q}}</li>
+	{% endif %}
+</body>
+</html>

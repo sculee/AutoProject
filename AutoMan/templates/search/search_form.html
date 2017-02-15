@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <form action="/search/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+	{% if error %}
+		<li>you should not submit an empty form</li>
+	{% endif %}
+	<p>suggestion:<textarea name="message" rows="10" cols="50" 
+placeholder="example:
+<tag>xpath$func(var)">{{message}}</textarea></p>
+    </form>
+</body>
+</html>
