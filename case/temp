@@ -1,4 +1,4 @@
 {
-"date":$query(b)
-"d":$date(a)
+"date":$query(bc),
+"d":$date(aa)
 }

@@ -19,7 +19,7 @@ from django.contrib import admin
 from AutoMan import view
 
 
-from AutoMan import books
+#from AutoMan import books
 #import AutoMan.view
 from django.contrib import admin
 admin.autodiscover();
@@ -29,8 +29,8 @@ urlpatterns = [
 	url(r'^hello/$',view.hello),
 	url(r'^index/$',view.indexPage),
 	url(r'^greet/name/([A-Za-z]*)/$',view.greet),
-	url(r'^search-form/$',books.search_form),
-	url(r'^search/$',books.search),
+#	url(r'^search-form/$',books.search_form),
+#	url(r'^search/$',books.search),
 #	url(r'^edit/$',view.compilePage),
 #	url(r'^link/$',view.returnJson),
 	url(r'^hint/$',view.hint),
