@@ -43,7 +43,7 @@ def request(url,head="",path="",cookieFile=""):
 
 
 	if cookieFile == "":
-		cookieFile = "../case/cookie"
+		cookieFile = "cookie"
 
 	try:
 
@@ -76,6 +76,6 @@ def request(url,head="",path="",cookieFile=""):
 #	print page
 	return page
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 #	request("http://www.baidu.com")
-	request("http://gld.weixin.keruyun.com/user/login.json?shopId=810007772&mobile=13980691506&code=1234&timeStamp=1487581612605&fromBrand=1")
+#	request("http://gld.weixin.keruyun.com/user/login.json?shopId=810007772&mobile=13980691506&code=1234&timeStamp=1487581612605&fromBrand=1")
