@@ -49,20 +49,25 @@ def request(url,head="",path="",cookieFile=""):
 
 		cookie = cookielib.MozillaCookieJar()
 		cookie.load(cookieFile, ignore_discard=True, ignore_expires=True)
-		req = urllib2.Request(url,jdata)
+		if "" == jdata:
+			req = urllib2.Request(url)
+		else:
+			req = urllib2.Request(url,jdata)
 
 		for i in range(jsize):
 			req.add_header(jkey[i],jvalue[i])#build request header
 
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
 		response = opener.open(req)
-	finally:
-
+	except IOError:
 		cookie = cookielib.MozillaCookieJar(cookieFile)
 		handler = urllib2.HTTPCookieProcessor(cookie)
 		opener = urllib2.build_opener(handler)
 
-		req = urllib2.Request(url,jdata)
+		if "" == jdata:
+			req = urllib2.Request(url)
+		else:
+			req = urllib2.Request(url,jdata)
 		for i in range(jsize):
 			req.add_header(jkey[i],jvalue[i])#build request header
 
@@ -76,6 +81,7 @@ def request(url,head="",path="",cookieFile=""):
 #	print page
 	return page
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
+#	request("http://testcheckout.shishike.com/checkout_biz/channel/orgcfg/cfg/get")
 #	request("http://www.baidu.com")
-#	request("http://gld.weixin.keruyun.com/user/login.json?shopId=810007772&mobile=13980691506&code=1234&timeStamp=1487581612605&fromBrand=1")
+	request("http://gld.weixin.keruyun.com/user/login.json?shopId=810007772&mobile=13980691506&code=1234&timeStamp=1487581612605&fromBrand=1")
